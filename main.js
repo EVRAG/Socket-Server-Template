@@ -2,6 +2,9 @@ const http = require("http");
 const express = require("express");
 const app = express();
 
+const cors = require("cors");
+app.use(cors());
+
 app.use(express.static("public"));
 // require("dotenv").config();
 
@@ -17,7 +20,9 @@ const wss =
     : new WebSocket.Server({ port: 5001 });
 
 server.listen(port);
-console.log(`Server started on port ${process.env.PORT} in stage ${process.env.NODE_ENV}`);
+console.log(
+  `Server started on port ${process.env.PORT} in stage ${process.env.NODE_ENV}`
+);
 
 wss.on("connection", function (ws, req) {
   console.log("Connection Opened");
@@ -32,14 +37,14 @@ wss.on("connection", function (ws, req) {
     if (isJSON(data)) {
       const currData = JSON.parse(data);
       broadcast(ws, currData, false);
-    } else if(typeof currData === 'string') {
-      if(currData === 'pong') {
-        console.log('keepAlive');
+    } else if (typeof currData === "string") {
+      if (currData === "pong") {
+        console.log("keepAlive");
         return;
       }
       broadcast(ws, currData, false);
     } else {
-      console.error('malformed message', data);
+      console.error("malformed message", data);
     }
   });
 
@@ -82,17 +87,16 @@ const isJSON = (message) => {
 /**
  * Sends a ping message to all connected clients every 50 seconds
  */
- const keepServerAlive = () => {
+const keepServerAlive = () => {
   keepAliveId = setInterval(() => {
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
-        client.send('ping');
+        client.send("ping");
       }
     });
   }, 50000);
 };
 
-
-app.get('/', (req, res) => {
-    res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
