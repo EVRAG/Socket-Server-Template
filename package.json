@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "start": "node ./main.js",
-    "dev": "NODE_ENV=development PORT=5000 node ./main.js"
+    "dev": "NODE_ENV=development PORT=333 node ./main.js"
   },
   "engines": {
     "node": ">=8.9.0"
