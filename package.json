@@ -8,7 +8,7 @@
   "private": false,
   "scripts": {
     "start": "node ./main.js",
-    "dev": "NODE_ENV=development PORT=333 node ./main.js"
+    "dev": "NODE_ENV=development PORT=5001 node ./main.js"
   },
   "engines": {
     "node": ">=8.9.0"
@@ -16,6 +16,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "pg": "^8.12.0",
     "ws": "^8.2.2"
   }
 }
